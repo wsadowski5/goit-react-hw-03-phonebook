@@ -77,14 +77,22 @@ export class App extends Component {
     );
   }
 
+  
+
   componentDidMount() {
     // odczytujemy kontakty
     const savedContacts = JSON.parse(localStorage.getItem('contacts'));
+
+    if (savedContacts === null) {
+      return
+    } else {
     this.setState({ contacts: savedContacts });
+    }
   }
 
   componentDidUpdate() {
-    // zapisujemy kontaktys
+    // zapisujemy kontakty
     localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
   }
+  
 }
