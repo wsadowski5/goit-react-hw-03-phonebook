@@ -3,7 +3,7 @@ import { ContactsList } from './ContactsList/ContactsList';
 import { ContactForm } from './ContactForm/ContactForm';
 import { v4 as uuidv4 } from 'uuid';
 import { Filter } from './Filter/Filter';
-import css from "./App.module.css"
+import css from './App.module.css';
 
 const INITIAL_STATE = {
   contacts: [
@@ -54,10 +54,10 @@ export class App extends Component {
     return filteredContacts;
   };
 
-
-
   deleteContact = id => {
-    this.setState({ contacts: this.state.contacts.filter(contact=> contact.id !==id) });
+    this.setState({
+      contacts: this.state.contacts.filter(contact => contact.id !== id),
+    });
   };
 
   render() {
@@ -75,5 +75,16 @@ export class App extends Component {
         />
       </div>
     );
+  }
+
+  componentDidMount() {
+    // odczytujemy kontakty
+    const savedContacts = JSON.parse(localStorage.getItem('contacts'));
+    this.setState({ contacts: savedContacts });
+  }
+
+  componentDidUpdate() {
+    // zapisujemy kontaktys
+    localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
   }
 }
