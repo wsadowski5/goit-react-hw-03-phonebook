@@ -90,9 +90,13 @@ export class App extends Component {
     }
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState) {
     // zapisujemy kontakty
-    localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+
+    if (prevState.contacts !== this.state.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+      console.log('poszło')
+    }
   }
   
 }
